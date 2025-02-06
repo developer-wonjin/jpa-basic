@@ -6,53 +6,33 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-import java.util.Map;
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDate;
 
 @SpringBootTest
-//@DataJpaTest 기본적으로 H2 in-memory 데이터베이스를 사용하여 테스트를 실행합니다.
+@Transactional
 class MemberTest {
-    @Autowired
-    private ApplicationContext applicationContext;
-
     @Autowired
     private EntityManagerFactory emf;
 
-    @Autowired
-    private EntityManager em;
-
-    @Value("${spring.datasource.url}")
-    private String datasourceUrl;
-
-    @Value("${spring.datasource.username}")
-    private String datasourceUsername;
+//    // 잘못된 코드다. em을 직접 다루는 것은 허용되지 않음. 항상 emf에서 생성해야함
+//    @Autowired
+//    private  EntityManager em;
 
     @Test
     void testEm () {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        System.out.println("datasourceUrl = " + datasourceUrl);
-        System.out.println("datasourceUsername = " + datasourceUsername);
-
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean =
-                applicationContext.getBean(LocalContainerEntityManagerFactoryBean.class);
-
-        String persistenceUnitName = entityManagerFactoryBean.getPersistenceUnitName();
-        System.out.println("persistenceUnitName = " + persistenceUnitName);
-
+        tx.begin();
         Member member = Member.builder()
-                        .id(1L)
+                        .id(3L)
                         .name("HelloAA")
                         .build();
         em.persist(member);
-
+        tx.commit();
     }
 
 }
