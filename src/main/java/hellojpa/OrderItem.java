@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter @Setter
-public class OrderItem extends BaseEntity {
+public class OrderItem {
     @Id @GeneratedValue
     private Long id;
 

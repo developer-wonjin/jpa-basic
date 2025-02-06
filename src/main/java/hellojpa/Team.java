@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @ToString(of = {"id", "name"})
 @Entity
-public class Team extends BaseEntity {
+public class Team {
 
     @Id @GeneratedValue
     private Long id;

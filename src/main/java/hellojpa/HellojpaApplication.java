@@ -1,5 +1,7 @@
 package hellojpa;
 
+import hellojpa.cascade.Child;
+import hellojpa.cascade.Parent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -15,11 +17,15 @@ import java.util.List;
 public class HellojpaApplication {
 
 	private static void logic(EntityManager em) {
-		Book book = Book.builder()
-				.name("JPA")
-				.author("도원진")
+		Parent parent = new Parent();
+		Child child1 = Child.builder()
+				.parent(parent)
 				.build();
-		em.persist(book);
+		Child child2 = Child.builder()
+				.parent(parent)
+				.build();
+
+		em.persist(parent);
 	}
 
 	public static void main(String[] args) {
@@ -33,7 +39,6 @@ public class HellojpaApplication {
 		try {
 			// 비영속 상태
 			logic(em);
-
 			// 영속 상태
 			tx.commit();
 		} catch (Exception e) {

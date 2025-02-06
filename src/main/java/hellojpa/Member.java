@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString(of = {"id", "name", "team"})
 @Entity
-public class Member extends BaseEntity {
+public class Member {
 
     @Id @GeneratedValue
     private Long id;

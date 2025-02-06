@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Delivery extends BaseEntity {
+public class Delivery {
 
     @Id @GeneratedValue
     private Long id;
