@@ -11,7 +11,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 @Slf4j
-public class Main {
+public class Template {
 
 	private static void init(EntityManager em) {
 		System.out.println("HellojpaApplication.init");
@@ -41,7 +41,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(Template.class, args);
 
 		EntityManagerFactory emf = (EntityManagerFactory)context.getBean("entityManagerFactory");
 		EntityManager em = emf.createEntityManager();

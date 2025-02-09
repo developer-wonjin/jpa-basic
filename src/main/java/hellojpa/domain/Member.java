@@ -35,7 +35,7 @@ public class Member {
     @OneToMany
     private List<Order> orders = new ArrayList<>();
 
-    public void setTeam(Team team) {
+    public void changeTeam(Team team) {
         this.team = team;
         if (team != null) {
             team.getMembers().add(this);

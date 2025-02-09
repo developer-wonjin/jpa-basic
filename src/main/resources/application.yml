@@ -14,7 +14,7 @@ spring:
       naming:
 #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         physical-strategy: hellojpa.config.UpperCaseNamingStrategy
-      ddl-auto: create
+      ddl-auto: create # none update create create-drop validate
     properties:
       hibernate:
         format_sql: true
@@ -22,6 +22,11 @@ spring:
         highlight_sql: true
         generate_statistics: true
         dialect: org.hibernate.dialect.H2Dialect
+#        dialect: org.hibernate.dialect.OracleDialect
+#        dialect: org.hibernate.dialect.MySQL57Dialect
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        dialect: org.hibernate.dialect.SQLServer2012Dialect
+
 
 # =========================
 # 📋 MyBatis 설정
