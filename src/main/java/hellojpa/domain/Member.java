@@ -20,6 +20,10 @@ public class Member {
     private String name;
     private int age;
 
+    @Setter
+    @Enumerated(EnumType.STRING)
+    private MemberType memberType;
+
     @Embedded
     private Period period;
 
