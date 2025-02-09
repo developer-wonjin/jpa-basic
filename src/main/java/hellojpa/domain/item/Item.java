@@ -1,5 +1,7 @@
-package hellojpa;
+package hellojpa.domain.item;
 
+import hellojpa.domain.BaseEntity;
+import hellojpa.domain.Category;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

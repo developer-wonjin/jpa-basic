@@ -1,4 +1,4 @@
-package hellojpa;
+package hellojpa.domain.item;
 
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;

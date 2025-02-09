@@ -1,9 +1,8 @@
-package hellojpa;
+package hellojpa.domain;
 
+import hellojpa.domain.item.Item;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -28,6 +27,8 @@ public class OrderItem {
     public String toString() {
         return "OrderItem{" +
                 "id=" + id +
+                ", order=" + order.getId() +
+                ", item=" + item.getId() +
                 ", orderPrice=" + orderPrice +
                 ", count=" + count +
                 '}';

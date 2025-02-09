@@ -18,7 +18,7 @@ public class Child {
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Parent parent;
 
     public Child(Long id, String name, Parent parent) {

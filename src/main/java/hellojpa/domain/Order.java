@@ -1,5 +1,6 @@
-package hellojpa;
+package hellojpa.domain;
 
+import hellojpa.value.Address;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,9 +8,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.*;
+
+@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Getter @Setter
+@Getter
 @Table(name = "ORDERS")
 @Entity
 public class Order {
@@ -17,28 +20,30 @@ public class Order {
     @Id @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private int OrderAmount;
 
-    private LocalDateTime orderDate;
+    @Embedded
+    private Address address;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @OneToMany
-    @Builder.Default
+    private LocalDateTime orderDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
+
+    @OneToMany(cascade = ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = ALL)
     private Delivery delivery;
 
-    public Order(Long id, Member member, LocalDateTime orderDate, OrderStatus status, List<OrderItem> orderItems, Delivery delivery) {
-        this.id = id;
+    public void setMember(Member member) {
         this.member = member;
-        this.orderDate = orderDate;
-        this.status = status;
-        this.orderItems = orderItems;
-        this.delivery = delivery;
         if (member != null) {
             member.getOrders().add(this);
         }

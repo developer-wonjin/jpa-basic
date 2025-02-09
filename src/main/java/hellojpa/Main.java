@@ -1,7 +1,6 @@
 package hellojpa;
 
-import hellojpa.cascade.Child;
-import hellojpa.cascade.Parent;
+import hellojpa.domain.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -10,26 +9,39 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.util.List;
-
 @SpringBootApplication
 @Slf4j
-public class HellojpaApplication {
+public class Main {
+
+	private static void init(EntityManager em) {
+		System.out.println("HellojpaApplication.init");
+		// 비영속
+		Member member = new Member();
+		member.setName("member1");
+		member.setAge(10);
+
+		System.out.println("===================================");
+		em.persist(member);
+		em.flush();
+		em.clear();
+		System.out.println("===================================");
+
+
+	}
+
+	private static void method(EntityManager em) {
+
+	}
+
+
 
 	private static void logic(EntityManager em) {
-		Parent parent = new Parent();
-		Child child1 = Child.builder()
-				.parent(parent)
-				.build();
-		Child child2 = Child.builder()
-				.parent(parent)
-				.build();
+		System.out.println("HellojpaApplication.logic");
 
-		em.persist(parent);
 	}
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(HellojpaApplication.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
 
 		EntityManagerFactory emf = (EntityManagerFactory)context.getBean("entityManagerFactory");
 		EntityManager em = emf.createEntityManager();
@@ -37,9 +49,8 @@ public class HellojpaApplication {
 
 		tx.begin();
 		try {
-			// 비영속 상태
+			init(em);
 			logic(em);
-			// 영속 상태
 			tx.commit();
 		} catch (Exception e) {
 			log.error("{예외 발생}", e);
@@ -50,4 +61,12 @@ public class HellojpaApplication {
 
 		emf.close();
 	}
+
+//	@AllArgsConstructor
+//	@Getter
+//	@Setter
+//	static class MemberDTO {
+//		private String name;
+//		private int age;
+//	}
 }
