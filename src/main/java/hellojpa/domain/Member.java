@@ -11,8 +11,12 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(of = {"id", "name", "team"})
+@ToString(of = {"id", "name", "age", "team"})
 @Entity
+@NamedQuery(
+        name = "Member.findByUsername",
+        query = "select m from Member m where m.name = :name"
+)
 public class Member {
 
     @Id @GeneratedValue
