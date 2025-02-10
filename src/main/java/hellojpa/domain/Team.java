@@ -2,6 +2,7 @@ package hellojpa.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Team {
     private Long id;
     private String name;
 
+//    @BatchSize(size = 100)
     @OneToMany(mappedBy = "team")
     @Builder.Default
     private List<Member> members = new ArrayList<>();
